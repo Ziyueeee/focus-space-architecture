@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Focus Persistent UI Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "regions",
+    "organization",
+    "rationale",
+    "persistent"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "regions": {
+      "const": [
+        "active",
+        "persistent"
+      ]
+    },
+    "organization": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "description": "Descriptive organization label. Integrated and modular are references; mixed or tailored compositions are allowed."
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "persistent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overview",
+        "components"
+      ],
+      "properties": {
+        "overview": {
+          "enum": [
+            "embedded",
+            "facts"
+          ]
+        },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/component"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "binding",
+        "hidden"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "facts-overview",
+            "timeline",
+            "task-list",
+            "material-list",
+            "renovation-scene",
+            "renovation-log"
+          ]
+        },
+        "binding": {
+          "enum": [
+            "proposal-summary",
+            "goal-summary",
+            "proposal-schedule",
+            "proposal-preparations",
+            "proposal-materials",
+            "renovation-spatial-state",
+            "renovation-updates"
+          ]
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "layout": {
+          "type": "object",
+          "required": [
+            "objects"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "objects": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "name",
+                  "binding",
+                  "x",
+                  "y",
+                  "w",
+                  "d",
+                  "kind"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "binding": {
+                    "type": "string"
+                  },
+                  "x": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "y": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "w": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 100
+                  },
+                  "d": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "maximum": 100
+                  },
+                  "kind": {
+                    "enum": [
+                      "living",
+                      "bedroom",
+                      "kitchen",
+                      "bathroom"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "organization": {
+            "const": "modular"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "persistent": {
+            "properties": {
+              "overview": {
+                "const": "facts"
+              },
+              "components": {
+                "prefixItems": [
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "facts-overview"
+                      },
+                      "hidden": {
+                        "const": false
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "organization": {
+            "const": "integrated"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "persistent": {
+            "properties": {
+              "overview": {
+                "const": "embedded"
+              },
+              "components": {
+                "items": {
+                  "not": {
+                    "properties": {
+                      "type": {
+                        "const": "facts-overview"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "persistent": {
+            "properties": {
+              "overview": {
+                "const": "facts"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "persistent": {
+            "properties": {
+              "components": {
+                "prefixItems": [
+                  {
+                    "properties": {
+                      "type": {
+                        "const": "facts-overview"
+                      },
+                      "hidden": {
+                        "const": false
+                      }
+                    }
+                  }
+                ],
+                "contains": {
+                  "properties": {
+                    "type": {
+                      "const": "facts-overview"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "persistent": {
+            "properties": {
+              "overview": {
+                "const": "embedded"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "persistent": {
+            "properties": {
+              "components": {
+                "items": {
+                  "not": {
+                    "properties": {
+                      "type": {
+                        "const": "facts-overview"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  }
+                },
+                "contains": {
+                  "properties": {
+                    "type": {
+                      "const": "renovation-scene"
+                    },
+                    "binding": {
+                      "const": "renovation-spatial-state"
+                    },
+                    "hidden": {
+                      "const": false
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "binding",
+                    "hidden"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

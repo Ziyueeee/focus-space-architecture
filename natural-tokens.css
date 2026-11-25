@@ -1,0 +1,26 @@
+/* Generated from current NaturalOS sources. Re-run prepare_demo.py --refresh; do not hand-edit. */
+@font-face{font-family:Aktiv;src:url("fonts/400.ttf") format("truetype");font-weight:400;font-display:swap;}
+@font-face{font-family:Aktiv;src:url("fonts/500.ttf") format("truetype");font-weight:500;font-display:swap;}
+@font-face{font-family:Aktiv;src:url("fonts/700.ttf") format("truetype");font-weight:700;font-display:swap;}
+:root{--natural-font:"Aktiv","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;}
+:lang(en){--natural-font:"Aktiv","Arial",sans-serif;}
+:lang(ja){--natural-font:"Aktiv","Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;}
+:lang(zh-CN){--natural-font:"Aktiv","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;}
+:lang(zh-TW){--natural-font:"Aktiv","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;}
+[data-type="H2 B"]{font-family:var(--natural-font);font-size:32px;font-weight:700;line-height:40px;letter-spacing:0.0em;}
+[data-type="H2 M"]{font-family:var(--natural-font);font-size:32px;font-weight:500;line-height:40px;letter-spacing:0.0em;}
+[data-type="H2"]{font-family:var(--natural-font);font-size:32px;font-weight:400;line-height:40px;letter-spacing:0.0em;}
+[data-type="H3 M"]{font-family:var(--natural-font);font-size:24px;font-weight:500;line-height:30px;letter-spacing:0.0em;}
+[data-type="H3"]{font-family:var(--natural-font);font-size:24px;font-weight:400;line-height:30px;letter-spacing:0.0em;}
+[data-type="H3 Rows"]{font-family:var(--natural-font);font-size:24px;font-weight:400;line-height:30px;letter-spacing:0.0em;}
+[data-type="H4 M"]{font-family:var(--natural-font);font-size:20px;font-weight:500;line-height:26px;letter-spacing:0.0em;}
+[data-type="H4"]{font-family:var(--natural-font);font-size:20px;font-weight:400;line-height:26px;letter-spacing:0.0em;}
+[data-type="Subhead M"]{font-family:var(--natural-font);font-size:16px;font-weight:500;line-height:22px;letter-spacing:0.0em;}
+[data-type="Subhead"]{font-family:var(--natural-font);font-size:16px;font-weight:400;line-height:22px;letter-spacing:0.0em;}
+[data-type="Body B"]{font-family:var(--natural-font);font-size:14px;font-weight:700;line-height:20px;letter-spacing:0.0em;}
+[data-type="Body M"]{font-family:var(--natural-font);font-size:14px;font-weight:500;line-height:20px;letter-spacing:0.0em;}
+[data-type="Body"]{font-family:var(--natural-font);font-size:14px;font-weight:400;line-height:20px;letter-spacing:0.0em;}
+[data-type="Caption M"]{font-family:var(--natural-font);font-size:12px;font-weight:500;line-height:16px;letter-spacing:0.0em;}
+[data-type="Caption"]{font-family:var(--natural-font);font-size:12px;font-weight:400;line-height:16px;letter-spacing:0.0em;}
+[data-theme="light"]{--natural-mindSpaceBackground:rgb(229 181 131 / 1);--natural-mindSpaceTextPrimary:rgb(30 30 30 / 1);--natural-mindSpaceTextSecondary:rgb(30 30 30 / 0.6);--natural-glassBg:rgb(255 255 255 / 0.45);--natural-glassBorder:rgb(255 255 255 / 0.7);--natural-dockExpandedBg:rgb(255 255 255 / 0.9);--natural-dockExpandedBorder:rgb(255 255 255 / 0.9);--natural-sendButtonBg:rgb(0 0 0 / 1);--natural-sendButtonIcon:rgb(255 255 255 / 1);--natural-backgroundCard:rgb(245 245 247 / 1);--natural-textPrimary:rgb(18 25 43 / 1);--natural-textSecondary:rgb(42 48 64 / 1);--natural-borderLight:rgb(231 232 234 / 1);--natural-sheetSurface:rgb(255 255 255 / 0.98);--natural-glassGradientStart:rgb(255 255 255 / 0.2);--natural-glassGradientEnd:rgb(255 255 255 / 0.02);}
+[data-theme="dark"]{--natural-mindSpaceBackground:rgb(3 3 6 / 1);--natural-mindSpaceTextPrimary:rgb(255 255 255 / 1);--natural-mindSpaceTextSecondary:rgb(128 128 128 / 1);--natural-glassBg:rgb(255 255 255 / 0.08);--natural-glassBorder:rgb(255 255 255 / 0.15);--natural-dockExpandedBg:rgb(255 255 255 / 0.15);--natural-dockExpandedBorder:rgb(255 255 255 / 0.3);--natural-sendButtonBg:rgb(255 255 255 / 1);--natural-sendButtonIcon:rgb(0 0 0 / 1);--natural-backgroundCard:rgb(245 245 247 / 1);--natural-textPrimary:rgb(18 25 43 / 1);--natural-textSecondary:rgb(42 48 64 / 1);--natural-borderLight:rgb(231 232 234 / 1);--natural-sheetSurface:rgb(6 6 6 / 0.95);--natural-glassGradientStart:rgb(255 255 255 / 0.1);--natural-glassGradientEnd:rgb(255 255 255 / 0.01);}

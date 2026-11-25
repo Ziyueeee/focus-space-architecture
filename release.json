@@ -1,0 +1,26 @@
+{
+  "version": "v006",
+  "releaseDate": "2026-11-25",
+  "summary": "双形态 GenUI 架构；求婚与装修 3D mock 示例；五种情境；最新生成与 UI 原则、标题整组复制。",
+  "changes": [
+    "Facts 纳入 Persistent UI，统一线框与定义",
+    "Focus Generation 9 条；Active UI 8 条含 Spatial Constraint；Persistent UI 8 条",
+    "求婚 + 装修 3D mock，五种情境按案例归组",
+    "00 / 01 / 02 入口、标题整组复制、精简辅助文字"
+  ],
+  "runtimeFiles": {
+    "app.js": "e2b73d81cb2eb3673d1520355b1ce1ed33b28812be39525feb2ab7560d0a6438",
+    "focus-model.js": "96a55cd63b1db0b5178cb26c39534300ce7e12953296bebd1e300c42a4a0a36a",
+    "fonts/400.ttf": "49fc7a44a881a98f189b40798bf9b38ffea11108caf004a3e75eedb11a50019f",
+    "fonts/500.ttf": "9c0558d1843443aac9c713fa6fbce18b18bda4fdd4a5491f79e519496f89cfc8",
+    "fonts/700.ttf": "51c13fb64ab624bcab9d519efdd315346f4a166cb57938885715ca43b5ce10e6",
+    "generation/contract.js": "ea1da8da5232fbc7c71e40f0f8469f9654b28f66ddccff58b978f0060537df96",
+    "generation/few-shot-examples.js": "3911fd37e7385e2c5551c2080780a25e05d542213e5ea95a8f90f965b56d3d3d",
+    "generation/focus-schema.json": "417fc85790c232da402f9f812d16900598d7d53c7894ab393d26457435aa4e6d",
+    "index.html": "da938bdd736b007bea35bba669074e9c8b297fcea53ca8d413f050cc721448d7",
+    "natural-tokens.css": "a44bf68feb2a36a96e2fa759802eff84fb107c51c7fdfdac7ca4464c8586c467",
+    "principles.js": "2e79dffa1df1a89f5b615ab5c8f9464b549604e4be2a199aa21ce2612c8404ea",
+    "renovation-view.js": "cc8958500a3789e3487af445160b323feb2ec48076cd0975c893de95d88471f3",
+    "style.css": "968a86b3e452d6e0ebbd39b59d927ca884bf769992cf773d54e98c18b1c92100"
+  }
+}
