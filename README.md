@@ -2,9 +2,14 @@
 
 可交互的 Focus Space 架构与生成原则 demo。
 
-版本：**v006 · 2026-11-25**
+版本：**v007 · 2026-11-25**
 
-## 本次更新
+## v007 · 2026-11-25
+
+- 默认进入线框视图，初始按钮状态同步。
+- 保留示例切换与明确指定 `view=example` 的链接。
+
+## v006 · 2026-11-25
 
 - Facts 纳入 Persistent UI，统一线框与定义。
 - Focus Generation 9 条原则；Active UI 8 条（含 Spatial Constraint）；Persistent UI 8 条。

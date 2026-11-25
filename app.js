@@ -23,7 +23,7 @@ async function copyPrinciple(button){
 }
 let storage;try{storage=window.localStorage;}catch{/* Session-only mode remains usable. */}
 let store=new Model.FocusStore(storage);
-const state={selected:'overview',example:new URLSearchParams(location.search).get('view')!=='wireframe',caseId:['garden','renovation'].includes(new URLSearchParams(location.search).get('case'))?'renovation':'proposal',scenario:'',notice:'',selectedRoom:'living',error:''};
+const state={selected:'overview',example:new URLSearchParams(location.search).get('view')==='example',caseId:['garden','renovation'].includes(new URLSearchParams(location.search).get('case'))?'renovation':'proposal',scenario:'',notice:'',selectedRoom:'living',error:''};
 function openCase(id){
  state.caseId=id;state.error='';
  try{store.open(id);}catch{state.error='保存的状态无法读取。请点「重置案例」显式重新生成。';}
