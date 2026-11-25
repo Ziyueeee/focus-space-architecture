@@ -2,7 +2,20 @@
 
 可交互的 Focus Space 架构与生成原则 demo。
 
-版本：**v007 · 2026-11-25**
+版本：**v008 · 2026-11-25**
+
+## 修改原则
+
+[查看原则文档](PRINCIPLES.md) · [直接编辑](https://github.com/Ziyueeee/focus-space-architecture/edit/main/PRINCIPLES.md)
+
+`PRINCIPLES.md` 是界面原则的唯一内容来源。提交到 `main` 后 GitHub Pages 自动发布，刷新 demo 即可读取最新内容；无需改 JavaScript。格式说明在文档末尾。
+
+## v008 · 2026-11-25
+
+- 新增 PRINCIPLES.md，完整保留三组 25 条原则及子规则。
+- 页面和整组复制统一读取 Markdown；Chat 关联随文档同步。
+- 顶部新增原则文档入口，支持在 GitHub 直接编辑提交。
+- 增加加载与失败重试状态，移除重复的 JS 原则副本。
 
 ## v007 · 2026-11-25
 
@@ -24,4 +37,4 @@
 
 ## 发布
 
-使用 GitHub Pages 从 `main` 根目录发布。每次上线同步页面版本、`release.json` 和此版本说明。运行时文件的 SHA-256 记录在 `release.json`。
+使用 GitHub Pages 从 `main` 根目录发布。每次上线同步页面版本、`release.json` 和此版本说明。代码发布时的文件 SHA-256 记录在 `release.json`；之后直接编辑 Markdown 的内容修订可在 GitHub 文件历史中追溯。

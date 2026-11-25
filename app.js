@@ -1,14 +1,29 @@
-(() => {
+(async () => {
 'use strict';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const sections=window.FOCUS_PRINCIPLES, Model=window.FocusModel, Examples=window.FocusExamples;
+const Markdown=window.FocusPrinciplesMarkdown, Model=window.FocusModel, Examples=window.FocusExamples;
+let sections;
+$('.workspace').setAttribute('aria-busy','true');
+$('.workspace').dataset.dsState='loading';
+try{
+ const url=new URL('PRINCIPLES.md',location.href);url.searchParams.set('read',Date.now());
+ sections=await Markdown.load(url.href);
+ window.FOCUS_PRINCIPLES=sections; // Derived from Markdown; retained for existing inspection tools.
+}catch(error){
+ $('.workspace').dataset.dsState='error';
+ $('.workspace').setAttribute('aria-busy','false');
+ $('#detail').innerHTML='<div class="principles-error" role="alert"><h2 class="detail-title">原则暂时无法显示</h2><p>请检查网络或原则文档格式，再重新读取。</p><button class="text-button" id="retry-principles">重新读取</button></div>';
+ $('#retry-principles').addEventListener('click',()=>location.reload());
+ return;
+}
+$('.workspace').setAttribute('aria-busy','false');
 let copyTexts=[];
 const copyTimers=new WeakMap();
 const copyIcon='<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="7" y="7" width="9" height="10" rx="1.6"/><path d="M12 4V3H3v10h1" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function copyButton(text,label='复制原则'){const id=copyTexts.push(text)-1;return `<button class="copy-button" data-copy="${id}" aria-label="${escape(label)}" title="${escape(label)}">${copyIcon}</button>`;}
-function principleText([title,body,children]){return [title,body,children?.map(item=>item[0]?principleText(item):'- '+item[1]).join('\n')].filter(Boolean).join('\n');}
-function groupText(group,numbered=false){return [group.title,group.desc,...group.principles.map((item,i)=>(numbered?`${i+1}. `:'')+principleText(item)),group.rule].filter(Boolean).join('\n\n');}
+function principleText(item){return [Markdown.plain(item[0]),Markdown.blocksText(item.blocks)].filter(Boolean).join('\n');}
+function groupText(group,numbered=false){return [Markdown.plain(group.title),Markdown.plain(group.desc),...group.principles.map((item,i)=>(numbered?`${i+1}. `:'')+principleText(item)),Markdown.plain(group.rule)].filter(Boolean).join('\n\n');}
 function normalizeRegion(key){return key==='facts'||key==='decision'?'persistent':key;}
 async function copyPrinciple(button){
  const text=copyTexts[Number(button.dataset.copy)];if(typeof text!=='string')return;
@@ -30,16 +45,19 @@ function openCase(id){
 }
 function overviewRow(key){
  const s=sections[key],generation=key==='generation';
- return `<button class="layer-row${generation?' generation-entry':''}" data-select="${key}"><span class="layer-number">${s.n}</span><span class="layer-label"><strong>${generation?s.title:s.name}</strong>${generation?'':`<small>${s.title}</small>`}</span><span class="row-arrow" aria-hidden="true">↗</span></button>`;
+ return `<button class="layer-row${generation?' generation-entry':''}" data-select="${key}"><span class="layer-number">${s.n}</span><span class="layer-label"><strong>${Markdown.inline(generation?s.title:s.name)}</strong>${generation?'':`<small>${Markdown.inline(s.title)}</small>`}</span><span class="row-arrow" aria-hidden="true">↗</span></button>`;
 }
 function overview(){
  return `<h2 class="detail-title">Focus Space</h2>${overviewRow('generation')}<div class="layer-list">${['active','persistent'].map(key=>`<div class="layer-group">${overviewRow(key)}</div>`).join('')}</div><div class="shared-context"><svg width="24" height="25" viewBox="0 0 24 25" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg><strong>Focus Memory · Context · State</strong></div>`;
 }
-function principleList(items,numbered=false){const tag=numbered?'ol':'div',itemTag=numbered?'li':'div';return `<${tag} class="principles${numbered?' numbered':''}">${items.map(([title,body,children])=>`<${itemTag} class="principle">${title?`<h3>${escape(title)}</h3>`:''}<p>${escape(body)}</p>${children?(children.every(([t])=>!t)?`<ul class="subrules subrule-bullets">${children.map(([,b])=>`<li>${escape(b)}</li>`).join('')}</ul>`:`<div class="subrules">${children.map(([t,b])=>`<div><h4>${escape(t)}</h4><p>${escape(b)}</p></div>`).join('')}</div>`):''}</${itemTag}>`).join('')}</${tag}>`;}
+function principleList(items,numbered=false){
+ const tag=numbered?'ol':'div',itemTag=numbered?'li':'div';
+ return `<${tag} class="principles${numbered?' numbered':''}">${items.map(item=>`<${itemTag} class="principle"><h3>${Markdown.inline(item[0])}</h3>${Markdown.renderBlocks(item.blocks)}</${itemTag}>`).join('')}</${tag}>`;
+}
 
 function structureDetail(key){
- if(key==='chat'){const items=[sections.active.principles.find(([title])=>title==='Actionable when needed'),...sections.persistent.principles.filter(([title])=>['User-controlled Structure','Bidirectional Editing'].includes(title))];return `<h2 class="detail-title copyable-title">Chat${copyButton(['Chat',...items.map(principleText)].join('\n\n'),'复制本组原则')}</h2>${principleList(items)}`;}
- const s=sections[key];return `<div class="detail-kicker"><span class="number-badge">${s.n}</span>${s.name}</div><h2 class="detail-title copyable-title">${s.title}${copyButton([s.name,groupText(s,key==='generation'),...(s.groups||[]).map(group=>groupText(group))].filter(Boolean).join('\n\n'),'复制本组原则')}</h2><p class="detail-description">${s.desc}</p>${key==='persistent'?'<h3 class="rules-heading">核心规则</h3>':''}${principleList(s.principles,key==='generation'||key==='persistent')}${s.rule?`<p class="rule-note">${key==='generation'||key==='active'?`<strong>${s.rule}</strong>`:`核心原则：${s.rule}`}</p>`:''}${(s.groups||[]).map(group=>`<section class="definition-section" aria-labelledby="definition-${group.id}"><h3 id="definition-${group.id}">${escape(group.title)}</h3><p class="detail-description">${escape(group.desc)}</p>${principleList(group.principles)}${group.rule?`<p class="rule-note">${escape(group.rule)}</p>`:''}</section>`).join('')}`;
+ if(key==='chat'){const items=[...sections.active.principles,...sections.persistent.principles].filter(item=>item.chat);return `<h2 class="detail-title copyable-title">Chat${copyButton(['Chat',...items.map(principleText)].join('\n\n'),'复制本组原则')}</h2>${principleList(items)}`;}
+ const s=sections[key];return `<div class="detail-kicker"><span class="number-badge">${s.n}</span>${Markdown.inline(s.name)}</div><h2 class="detail-title copyable-title">${Markdown.inline(s.title)}${copyButton([Markdown.plain(s.name),groupText(s,key==='generation'),...(s.groups||[]).map(group=>groupText(group))].filter(Boolean).join('\n\n'),'复制本组原则')}</h2><p class="detail-description">${Markdown.inline(s.desc)}</p>${key==='persistent'?'<h3 class="rules-heading">核心规则</h3>':''}${principleList(s.principles,key==='generation'||key==='persistent')}${s.rule?`<p class="rule-note">${key==='generation'||key==='active'?`<strong>${Markdown.inline(s.rule)}</strong>`:`核心原则：${Markdown.inline(s.rule)}`}</p>`:''}${(s.groups||[]).map(group=>`<section class="definition-section" aria-labelledby="definition-${group.id}"><h3 id="definition-${group.id}">${escape(group.title)}</h3><p class="detail-description">${escape(group.desc)}</p>${principleList(group.principles)}${group.rule?`<p class="rule-note">${escape(group.rule)}</p>`:''}</section>`).join('')}`;
 }
 function renderSelection(){
  $$('[data-select]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.select===state.selected)));

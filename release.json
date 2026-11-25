@@ -1,13 +1,16 @@
 {
-  "version": "v007",
+  "version": "v008",
   "releaseDate": "2026-11-25",
-  "summary": "默认进入线框视图，点击示例后查看案例与模拟情境。",
+  "summary": "原则由 Markdown 统一维护，文档编辑后同步到页面与整组复制。",
   "changes": [
-    "打开首页默认选中线框，初始按钮状态同步。",
-    "保留示例切换与明确指定 view=example 的链接。"
+    "新增 PRINCIPLES.md，完整保留三组 25 条原则及子规则。",
+    "页面和整组复制统一读取 Markdown；Chat 关联随文档同步。",
+    "顶部新增原则文档入口，支持在 GitHub 直接编辑提交。",
+    "增加加载与失败重试状态，移除重复的 JS 原则副本。"
   ],
   "runtimeFiles": {
-    "app.js": "953ac9bdd1787bed8b3579d60cdf013b8b97688b292053359ab5d463f96885bd",
+    "PRINCIPLES.md": "f31b08879ad4c700aebb8759e53acb58ee54f8bb6046cf8c60bbdabb88d2f1a9",
+    "app.js": "cc38712dadade3f18de2f7520730218088bb58a12e08bbe9216e3e926c168006",
     "focus-model.js": "96a55cd63b1db0b5178cb26c39534300ce7e12953296bebd1e300c42a4a0a36a",
     "fonts/400.ttf": "49fc7a44a881a98f189b40798bf9b38ffea11108caf004a3e75eedb11a50019f",
     "fonts/500.ttf": "9c0558d1843443aac9c713fa6fbce18b18bda4fdd4a5491f79e519496f89cfc8",
@@ -15,10 +18,10 @@
     "generation/contract.js": "ea1da8da5232fbc7c71e40f0f8469f9654b28f66ddccff58b978f0060537df96",
     "generation/few-shot-examples.js": "3911fd37e7385e2c5551c2080780a25e05d542213e5ea95a8f90f965b56d3d3d",
     "generation/focus-schema.json": "417fc85790c232da402f9f812d16900598d7d53c7894ab393d26457435aa4e6d",
-    "index.html": "f37ffcfd2b231718b41f75e9d350dd0e5bd37ad6ce370398dfef2c312af787fc",
+    "index.html": "ea61e31b5373cd8088e4253e9bc971e4e0f3b64efadb124604deb8e497ae6aea",
     "natural-tokens.css": "a44bf68feb2a36a96e2fa759802eff84fb107c51c7fdfdac7ca4464c8586c467",
-    "principles.js": "2e79dffa1df1a89f5b615ab5c8f9464b549604e4be2a199aa21ce2612c8404ea",
+    "principles-markdown.js": "f79df372e4932b44af5511142f1329622f67eaddcd048305e99023b75a3f677a",
     "renovation-view.js": "cc8958500a3789e3487af445160b323feb2ec48076cd0975c893de95d88471f3",
-    "style.css": "968a86b3e452d6e0ebbd39b59d927ca884bf769992cf773d54e98c18b1c92100"
+    "style.css": "d992ba9d641b798a297cbce39a90372481f3771149efeb3b5ed29068b3fa03b5"
   }
 }
